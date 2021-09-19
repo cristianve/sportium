@@ -28,3 +28,6 @@ sports (maximize pattern abstraction).
 ![AmericanFootball](img/TennisResult.JPG)
 ## Invalid regex format ❌:
 ![InvalidFormat](img/InvalidResult.JPG)
+
+## Unitary testing ✔️:
+![InvalidFormat](img/UnitaryTesting.JPG)
