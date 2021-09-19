@@ -29,9 +29,9 @@ public class GUI {
 
         JLabel labelInput = new JLabel("Enter Text:");
         JTextField textField = new JTextField(10); // accepts upto 10 characters
-        //textField.setText("F.C. Barcelona 3-2 Real Madrid");
+        textField.setText("F.C. Barcelona 3-2 Real Madrid");
         //textField.setText("Anna Karolina Schmiedlova (1) 1 40-Adv 1 (0) *Varvara Lepchenko");
-        textField.setText("Pittsburgh Steelers 3-7 Minnesota Vikings 3rd Quarter");
+        //textField.setText("Pittsburgh Steelers 3-7 Minnesota Vikings 3rd Quarter");
 
         JButton convertButton = new JButton("Convert");
         JLabel labelOutput = new JLabel("JSON output:");

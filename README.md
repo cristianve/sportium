@@ -1,6 +1,6 @@
 # Sportium 💸🎮🎰
-# CIRSA 🍎🏭
 
+# CIRSA 🍎🏭
 
 # Summary 🤔
 
@@ -8,10 +8,10 @@ Input ("String") --> Detect sport patterns --> Output ("JSON") with classified e
 
 * Require GUI: Input text + Send button and JSON Output viewer of the result (output).
 
-*Important* : This solution must be easily expandable, to be able to accept new chains in other formats for other sports (maximize pattern abstraction).
+*Important* : This solution must be easily expandable, to be able to accept new chains in other formats for other
+sports (maximize pattern abstraction).
 
 # Examples
-
 
 | Input                                                           | Pattern                                                                                                                     | Output                                                                                                                                                                                                                                                                        |
 |-----------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
