@@ -7,10 +7,11 @@ import main.structure.types.Score;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
+/**
+ * Service class - Validate regex input format and return the JSON ouput
+ */
 public class DetectPatterns {
 
     public DetectPatterns() {
@@ -25,24 +26,26 @@ public class DetectPatterns {
         // Regex to check valid american football game.
         String regexAmericanFootball = "^(.+?) (\\d+)-(\\d+) (.+) (.+(?= Quarter)) (Quarter)$";
 
-        if (input.matches(regexFootball)) {
-            return this.getFootballResult(input);
+
+        if (input.matches(regexAmericanFootball)) {
+            return this.getAmericanFootballResult(input);
         } else if (input.matches(regexTennis)) {
             return this.getTennisResult(input);
-        } else if (input.matches(regexAmericanFootball)) {
-            return this.getAmericanFootballResult(input);
+        } else if (input.matches(regexFootball)) {
+            return this.getFootballResult(input);
         } else {
             return "Format not detected! Verify the input text.";
         }
 
     }
 
-    private String getFootballResult(String input) {
+
+    public String getFootballResult(String input) {
 
         List<String> list = Arrays.asList(input.split(" "));
-        System.out.println("List: " + list);
+        //System.out.println("List: " + list);
         String score = list.stream().filter(values -> values.contains("-")).findFirst().orElse(null);
-        System.out.println("Score: " + score);
+        //System.out.println("Score: " + score);
 
         int indexOpt = IntStream.range(0, list.size())
                 .filter(i -> (score).equals(list.get(i)))
@@ -80,12 +83,12 @@ public class DetectPatterns {
         System.out.println("Name B: " + nameB);
 
 
-        Game football = new Game.GameBuilder().nameA(new Name(nameA)).nameB(new Name(secondPart)).score(new Score(score)).build();
+        Game football = new Game.GameBuilder().nameA(new Name("A", nameA)).nameB(new Name("B", nameB)).scoreA(new Score("A", scoreA)).scoreB(new Score("B", scoreB)).build();
 
         return "{" + football.toString() + "}";
     }
 
-    private String getAmericanFootballResult(String input) {
+    public String getAmericanFootballResult(String input) {
 
         List<String> list = Arrays.asList(input.split(" "));
         //System.out.println("List: " + list);
@@ -117,21 +120,30 @@ public class DetectPatterns {
         System.out.println("Name A: " + nameA);
 
         //Name B
-        String nameB = secondPart.substring(0, secondPart.indexOf(list.get(list.toArray().length - 2)));
+        String nameB = secondPart.substring(0, secondPart.indexOf(score.substring(0, 1)));
         System.out.println("Name B: " + nameB);
+        System.out.println("NAME B:" + nameB);
+
+        //Score A
+        String scoreA = score.substring(0, score.indexOf("-"));
+        System.out.println("Score A: " + scoreA);
+
+        //Score B
+        String scoreB = score.substring(score.indexOf("-") + 1);
+        System.out.println("Score B: " + scoreB);
 
         //Quarter
         String quarter = list.get(list.toArray().length - 2);
         System.out.println("Quarter: " + quarter);
 
 
-        Game americanFootball = new Game.GameBuilder().nameA(new Name(nameA)).nameB(new Name(nameB)).score(new Score(score)).period(new Period(quarter)).build();
+        Game americanFootball = new Game.GameBuilder().nameA(new Name("A", nameA)).nameB(new Name("B", nameB)).scoreA(new Score("A", scoreA)).scoreB(new Score("B", scoreB)).period(new Period(quarter)).build();
 
         return "{" + americanFootball.toString() + "}";
 
     }
 
-    private String getTennisResult(String input) {
+    public String getTennisResult(String input) {
 
         List<String> list = Arrays.asList(input.split(" "));
         //System.out.println("List: " + list);
@@ -186,10 +198,14 @@ public class DetectPatterns {
         System.out.println("Games B: " + gamesB);
 
         //SERVING
+        boolean isServingA = false;
+        boolean isServingB = false;
         if (firstPart.contains("*")) {
             System.out.println("Serving A: " + "true");
+            isServingA = true;
         } else if (secondPart.contains("*")) {
             System.out.println("Serving B: " + "true");
+            isServingB = true;
         }
 
         //SETS A
@@ -200,7 +216,7 @@ public class DetectPatterns {
         String setsB = secondPart.substring(secondPart.indexOf("(") + 1, secondPart.indexOf(")"));
         System.out.println("Sets B: " + setsB);
 
-        Game tennis = new Game.GameBuilder().nameA(new Name(nameTennisA)).nameB(new Name(nameTennisB)).score(new Score(score)).build();
+        Game tennis = new Game.GameBuilder().nameA(new Name("A", nameTennisA)).nameB(new Name("B", nameTennisB)).scoreA(new Score("A", scoreA, gamesA, setsA, isServingA)).scoreB(new Score("B", scoreB, gamesB, setsB, isServingB)).build();
 
         return "{" + tennis.toString() + "}";
 

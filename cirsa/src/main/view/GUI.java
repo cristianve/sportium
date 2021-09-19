@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Main class - Generate Java Swing GUI to interact with user.
+ */
 public class GUI {
 
 
@@ -18,22 +21,22 @@ public class GUI {
         //Creating the Frame
         JFrame frame = new JFrame("SportTextToJSON Converter - CIRSA");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1080, 200);
+        frame.setSize(1620, 200);
 
         //Creating the panel at bottom and adding components
         JPanel panel = new JPanel(); // the panel is not visible in output
-        panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         JLabel labelInput = new JLabel("Enter Text:");
         JTextField textField = new JTextField(10); // accepts upto 10 characters
         //textField.setText("F.C. Barcelona 3-2 Real Madrid");
-        textField.setText("Anna Karolina Schmiedlova (1) 1 40-Adv 1 (0) *Varvara Lepchenko");
-        //textField.setText("Pittsburgh Steelers 3-7 Minnesota Vikings 3rd Quarter");
+        //textField.setText("Anna Karolina Schmiedlova (1) 1 40-Adv 1 (0) *Varvara Lepchenko");
+        textField.setText("Pittsburgh Steelers 3-7 Minnesota Vikings 3rd Quarter");
 
         JButton convertButton = new JButton("Convert");
         JLabel labelOutput = new JLabel("JSON output:");
 
-        JTextField  labelOutputContent = new JTextField ("{ \"teamAName\": \"F.C. Barcelona\", \"teamBName\": \"Real Madrid\",\n" +
+        JTextField labelOutputContent = new JTextField("{ \"teamAName\": \"F.C. Barcelona\", \"teamBName\": \"Real Madrid\",\n" +
                 "\"teamAScore\": \"3\", \"teamBScore\": \"2\" }");
         labelOutputContent.setEditable(false);
         labelOutputContent.setBackground(null); //this is the same as a JLabel
@@ -43,7 +46,7 @@ public class GUI {
         convertButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                labelOutputContent.setText(GUI.getJSONOuput(textField.getText()));
+                labelOutputContent.setText(detectPatterns.validateRegexFormat(textField.getText()));
             }
         });
 
@@ -60,55 +63,5 @@ public class GUI {
         frame.setVisible(true);
     }
 
-    public static String getJSONOuput(String input){
-
-
-        return detectPatterns.validateRegexFormat(input);
-
-
-        /*
-        Template template = new Template();
-        List<FinalObject> finalObjectList = new ArrayList<>();
-        List<TemplateItem> templateItemList = new ArrayList<>();
-
-        templateItemList.add(new TemplateItem(DataType.TEAM_NAME,""));
-        templateItemList.add(new TemplateItem(DataType.SCORE,""));
-        templateItemList.add(new TemplateItem(DataType.SEPARATOR,"-"));
-        templateItemList.add(new TemplateItem(DataType.SCORE,""));
-        templateItemList.add(new TemplateItem(DataType.TEAM_NAME,""));
-
-
-        template.setTemplateItemList(templateItemList);
-
-
-
-        String[] splitInput = input.split("-");
-        
-        for(int i=0;i<splitInput.length;i++){
-
-            String score = "splitInput[i].";
-
-
-            String team = "TEST";
-            finalObjectList.add(new FinalObject(team,score,null));
-
-
-
-        }
-
-        System.out.println(splitInput[0]);
-        System.out.println(splitInput[1]);
-        */
-        
-
-
-
-        //String sportResult = detectPatterns.detectSportPattern(input);
-        //return generateJSON.getJSONBySport(sportResult);
-
-
-        //return "{ \"teamAName\": \"F.C. Barcelona\", \"teamBName\": \"Real Madrid\",\n" + "\"teamAScore\": \"3\", \"teamBScore\": \"2\" }";
-
-    }
 
 }

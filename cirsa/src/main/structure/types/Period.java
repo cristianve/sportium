@@ -2,7 +2,6 @@ package main.structure.types;
 
 public class Period {
 
-
     String period;
 
     public Period(String quarter) {
@@ -11,8 +10,8 @@ public class Period {
 
     @Override
     public String toString() {
-        if(period!=null){
-            return " \"currentPeriod\":\"" + period + " Quarter\"" ;
+        if (period != null) {
+            return " \"currentPeriod\":\"" + period + " Quarter\"";
         }
         return "";
     }
